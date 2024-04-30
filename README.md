@@ -72,3 +72,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 Created a sidebar page
 Authentication
 Routing
+Login
+Sign In , Sign Up
+useRef hook
+firebase setup
+implemented sign in user Api
+created redux store with user slice
