@@ -2,20 +2,29 @@ import { useRef, useState } from "react";
 import "./Login.css";
 import XIcon from "@mui/icons-material/X";
 import { checkValidData } from "../utils/validate";
-import { auth } from "../utils/firebase";
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 
-import { addUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { onAuthStateChanged } from "firebase/auth";
+import { addUser, removeUser } from "../utils/userSlice";
+
+import { getAuth } from "firebase/auth";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+  const auth = getAuth();
 
   const name = useRef(null);
   const email = useRef(null);
@@ -93,6 +102,30 @@ const Login = () => {
   const toggleSignIn = () => {
     setIsSignIn(!isSignIn);
   };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(
+          addUser({
+            uid: uid,
+            email: email,
+            displayName: displayName,
+            photoURL: photoURL,
+          })
+        );
+
+        navigate("/home");
+      } else {
+        // User is signed out
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+    // Unsubscribe when component unmounts
+    return () => unsubscribe();
+  }, []);
 
   return (
     <div className="login">

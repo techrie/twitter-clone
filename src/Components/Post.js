@@ -7,11 +7,11 @@ import PublishIcon from "@mui/icons-material/Publish";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
-const Post = () => {
+const Post = ({ displayName, username, verified, text, image, avatar }) => {
   return (
     <div className="post">
       <div className="post-avatar">
-        <Avatar src="" />
+        <Avatar src={avatar} />
       </div>
 
       <div className="postBody">
@@ -19,10 +19,10 @@ const Post = () => {
           <div className="postHeaderText">
             <div className="postHeaderInfo">
               <h4>
-                Name
+                {displayName}
                 <span className="postHeaderUserName">
-                  <VerifiedUserIcon className="post-badge" />
-                  @Name
+                  {verified && <VerifiedUserIcon className="post-badge" />} @
+                  {username}
                 </span>
               </h4>
             </div>
@@ -33,11 +33,12 @@ const Post = () => {
           </div>
 
           <div className="postHeaderDescription">
-            <p>Have a great day!</p>
+            <p>{text}</p>
           </div>
         </div>
         <img
-          src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHhqdWp4cXVtaWh5N29uMTVwdDN1bW5pcTdlczg2dmhmaTM1MTBheCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JQYJwMKXRmb1viBSBJ/giphy.gif"
+          // src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHhqdWp4cXVtaWh5N29uMTVwdDN1bW5pcTdlczg2dmhmaTM1MTBheCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JQYJwMKXRmb1viBSBJ/giphy.gif"
+          src={image}
           alt="postImg"
         />
 
