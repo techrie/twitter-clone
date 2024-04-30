@@ -1,0 +1,49 @@
+.login {
+  width: 95vw;
+  margin: 0 auto;
+  max-width: 1120px;
+}
+
+.login {
+  text-align: center;
+  margin-top: 10rem;
+}
+
+.form-login {
+  width: 30vw;
+  max-width: 1120px;
+  background: white;
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 3rem 3.5rem;
+  margin: 3rem auto;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.btn {
+  cursor: pointer;
+  color: white;
+  background: #50b7f5;
+  border: transparent;
+  border-radius: 0.5rem;
+  letter-spacing: 1px;
+  padding: 0.5rem 0.75rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  transition: 0.3s ease-in-out all;
+  text-transform: capitalize;
+  display: inline-block;
+}
+
+.btn-block {
+  width: 100%;
+}

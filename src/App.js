@@ -1,14 +1,22 @@
 import "./App.css";
-import Sidebar from "./Components/Sidebar";
-import Feed from "./Components/Feed";
+
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Login from "./Components/Login";
+import Home from "./Components/Home";
 
 function App() {
-  return (
-    <div className="app">
-      <Sidebar />
-      <Feed />
-    </div>
-  );
+  const appRouter = createBrowserRouter([
+    {
+      path: "/",
+      element: <Login />,
+    },
+    {
+      path: "/home",
+      element: <Home />,
+    },
+  ]);
+
+  return <RouterProvider router={appRouter}>{/* <Home /> */}</RouterProvider>;
 }
 
 export default App;
