@@ -1,0 +1,15 @@
+.sidebar {
+  border-right: 1px solid #e4e6e7 !important;
+  flex: 0.2;
+  /* margin-top: 15px; */
+  padding-left: 22px;
+  padding-right: 22px;
+}
+
+.twitterIcon-sidebar {
+  font-size: 30px !important;
+  color: #222;
+  margin-left: 22px;
+  margin-bottom: 22px;
+  cursor: pointer;
+}
