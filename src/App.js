@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./Components/Login";
 import Home from "./Components/Home";
 import Body from "./Components/Body";
+import ProfilePage from "./Components/ProfilePage";
 
 function App() {
   const appRouter = createBrowserRouter([
@@ -15,9 +16,17 @@ function App() {
       path: "/home",
       element: <Home />,
     },
+    // {
+    //   path: "/profile",
+    //   element: <ProfilePage />,
+    // },
   ]);
 
-  return <RouterProvider router={appRouter}>{<Body />}</RouterProvider>;
+  return (
+    <RouterProvider router={appRouter}>
+      <Body />
+    </RouterProvider>
+  );
 }
 
 export default App;

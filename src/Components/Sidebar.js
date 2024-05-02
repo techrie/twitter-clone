@@ -11,20 +11,20 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { auth } from "../utils/firebase";
+
 import { signOut } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { addUser, removeUser } from "../utils/userSlice";
 import { getAuth } from "firebase/auth";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const auth = getAuth();
-
-  const user = useSelector((store) => store.user);
+  console.log(auth);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -60,6 +60,9 @@ const Sidebar = () => {
     return () => unsubscribe();
   }, []);
 
+  const user = useSelector((store) => store.user);
+  console.log(user + "from sidebar....");
+
   return (
     <>
       <div className="sidebar">
@@ -70,18 +73,24 @@ const Sidebar = () => {
           <SidebarOptions Icon={MailOutlineIcon} text="Messages" />
           <SidebarOptions Icon={BookmarkBorderIcon} text="Bookmarks" />
           <SidebarOptions Icon={NotificationsNoneIcon} text="Notifications" />
-          <SidebarOptions Icon={PersonOutlineIcon} text="Profile" />
+          <Link to="/profile">
+            <SidebarOptions
+              Icon={PersonOutlineIcon}
+              text="Profile"
+              user={user}
+            />
+          </Link>
           <SidebarOptions Icon={ExpandMoreIcon} text="More" />
         </div>
-
+        {/* user.email.split('@')[0] */}
         <div className="user-details">
           <img className="user-img" src={user?.photoURL} alt="avatar_logo" />
-          <h4>{user?.displayName}</h4>
-          <button
-            className="font-normal text-white cursor-pointer "
-            onClick={handleSignOut}
-          >
-            <MoreHorizIcon />
+          <div className="user-name">
+            <h4>{user?.displayName}</h4>
+            <h5>@{user?.displayName?.slice(0, 4).toLowerCase()}</h5>
+          </div>
+          <button className="btn" onClick={handleSignOut}>
+            signout
           </button>
         </div>
       </div>

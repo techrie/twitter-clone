@@ -17,6 +17,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { addUser, removeUser } from "../utils/userSlice";
 
 import { getAuth } from "firebase/auth";
+import db from "../utils/firebase";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -29,12 +30,10 @@ const Login = () => {
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
+  const username = useRef(null);
 
   const handleButtonClick = () => {
     //Validate the email and password
-
-    console.log(email.current.value);
-    console.log(password.current.value);
 
     const message = checkValidData(email.current.value, password.current.value);
     // console.log(message);
@@ -62,6 +61,32 @@ const Login = () => {
             .then(() => {
               // Profile updated!
               const { uid, email, displayName, photoURL } = auth.currentUser;
+
+              db.collection("users")
+                .doc(uid)
+                .set({
+                  username: displayName?.slice(0, 4).toLowerCase(),
+                  email: email,
+                  displayName: displayName,
+                  follows: [],
+                })
+                .then(() => {
+                  console.log(
+                    `Document successfully written! for user - ${displayName}`
+                  );
+                })
+                .catch((error) => {
+                  console.error(
+                    `Error writing document for user - ${displayName}`,
+                    error
+                  );
+                });
+
+              db.collection("connections").add({
+                followerId: uid,
+                followeeId: uid,
+              });
+
               dispatch(
                 addUser({
                   uid: uid,
@@ -140,6 +165,7 @@ const Login = () => {
             className="form-input"
           />
         )}
+
         <input
           type="text"
           ref={email}
@@ -152,6 +178,7 @@ const Login = () => {
           placeholder="Password"
           className="form-input"
         />
+        {/* Fix this error message text to red */}
         <p className="text-red-500 text-sm">{errorMessage}</p>
         <button
           type="submit"

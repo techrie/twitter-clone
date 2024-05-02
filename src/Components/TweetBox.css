@@ -18,11 +18,13 @@
   margin-left: 20px;
   font-size: 18px;
   width: 100%;
+  background: transparent;
 }
 
 .tweetInput-Img {
   border-bottom: 1px solid #e6ecf0 !important;
   padding: 10px;
+  background: transparent;
 }
 
 .tweetBoxBtn {

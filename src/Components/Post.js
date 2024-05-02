@@ -25,10 +25,7 @@ const Post = ({ displayName, username, verified, text, image, avatar }) => {
                   {username}
                 </span>
               </h4>
-            </div>
-
-            <div className="postHeaderOptions">
-              <MoreHorizIcon />
+              {/* <p>{createdAt.toDate()}</p> */}
             </div>
           </div>
 
@@ -39,7 +36,6 @@ const Post = ({ displayName, username, verified, text, image, avatar }) => {
         <img
           // src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHhqdWp4cXVtaWh5N29uMTVwdDN1bW5pcTdlczg2dmhmaTM1MTBheCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JQYJwMKXRmb1viBSBJ/giphy.gif"
           src={image}
-          alt="postImg"
         />
 
         <div className="postFooter">
