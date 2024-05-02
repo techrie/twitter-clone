@@ -7,7 +7,15 @@ import PublishIcon from "@mui/icons-material/Publish";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
-const Post = ({ displayName, username, verified, text, image, avatar }) => {
+const Post = ({
+  displayName,
+  username,
+  verified,
+  text,
+  image,
+  avatar,
+  createdAt,
+}) => {
   return (
     <div className="post">
       <div className="post-avatar">
@@ -25,7 +33,7 @@ const Post = ({ displayName, username, verified, text, image, avatar }) => {
                   {username}
                 </span>
               </h4>
-              {/* <p>{createdAt.toDate()}</p> */}
+              <p>{createdAt.toDate().toString()}</p>
             </div>
           </div>
 

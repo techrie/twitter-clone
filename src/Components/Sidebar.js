@@ -61,13 +61,13 @@ const Sidebar = () => {
   }, []);
 
   const user = useSelector((store) => store.user);
-  console.log(user + "from sidebar....");
+  console.log(JSON.stringify(user) + "from sidebar....");
 
   return (
     <>
       <div className="sidebar">
         <XIcon className="twitterIcon-sidebar" />
-        <div>
+        <div className="sidebar-menu">
           <SidebarOptions active Icon={HomeIcon} text="Home" />
           <SidebarOptions Icon={SearchIcon} text="Explore" />
           <SidebarOptions Icon={MailOutlineIcon} text="Messages" />

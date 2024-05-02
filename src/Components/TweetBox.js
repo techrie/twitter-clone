@@ -13,7 +13,7 @@ const TweetBox = () => {
 
   const user = useSelector((store) => store.user);
 
-  console.log(user);
+  // console.log(user);
 
   const handlePost = (e) => {
     e.preventDefault();
@@ -40,6 +40,7 @@ const TweetBox = () => {
           <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkoyUQaux4PEUmEPGc7PodeN8XbgC4aOBsug&s" />
           <input
             type="text"
+            className="tweetBoxInputtext"
             placeholder="What is happening?!"
             value={tweetMessage}
             onChange={(e) => setTweetMessage(e.target.value)}

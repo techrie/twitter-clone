@@ -3,7 +3,7 @@ import TweetBox from "./TweetBox";
 import Post from "./Post";
 import { useEffect, useState } from "react";
 import db from "../utils/firebase";
-
+import { nanoid } from "nanoid";
 const Feed = () => {
   const [posts, setPosts] = useState([]);
 
@@ -19,6 +19,7 @@ const Feed = () => {
 
       {posts.map((post) => (
         <Post
+          key={nanoid()}
           displayName={post.displayName}
           username={post.username}
           verified={post.verified}

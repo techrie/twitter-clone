@@ -2,15 +2,20 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
   border-right: 1px solid #e4e6e7 !important;
-  flex: 0.3;
+  flex: 0.2;
   /* margin-top: 15px; */
   padding-left: 22px;
   padding-right: 22px;
 }
 
+.sidebar-menu {
+  font-size: 50px;
+}
+
 .twitterIcon-sidebar {
   font-size: 30px !important;
   color: #222;
+  margin-top: 20px;
   margin-left: 22px;
   margin-bottom: 22px;
   cursor: pointer;
@@ -20,7 +25,7 @@
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .user-name {
@@ -37,7 +42,9 @@
 }
 
 .user-name h5 {
-  color: gray;
+  color: rgb(88, 85, 85);
+  font-size: 18px;
+  font-weight: 400;
 }
 
 .user-img {
@@ -46,16 +53,17 @@
   height: 50px;
   border-radius: 50%;
   border: none;
+  margin-right: 8px;
 }
 
 .user-details .btn {
-  background: transparent;
-  color: black;
-  padding: 0.5rem 0.75rem;
+  background: #50b7f5;
+  color: white;
+  padding: 0.5rem 0.7rem;
   border: transparent;
   display: inline-block;
   font-size: 16px;
   font-weight: 600;
-  border-radius: 0.25rem;
+  /* border-radius: 0.25rem; */
   cursor: pointer;
 }

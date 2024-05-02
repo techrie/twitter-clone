@@ -2,11 +2,12 @@
   display: flex;
   align-items: flex-start;
   padding-bottom: 10px;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #e6ecf0 !important;
 }
 
 .post:hover {
-  background: rgba(244, 241, 241, 0.905);
+  /* background: rgba(244, 241, 241, 0.905); */
+  background: #e6ecf0;
 }
 
 .post-avatar {
@@ -32,9 +33,9 @@
 }
 
 .postHeaderUserName {
-  font-size: 18px !important;
-  font-weight: 800;
-  color: gray;
+  font-size: 20px !important;
+  font-weight: 400;
+  color: rgb(67, 65, 65);
   cursor: pointer;
 }
 

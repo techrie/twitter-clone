@@ -13,7 +13,7 @@
 
 //   const user = useSelector((store) => store.user);
 
-//   console.log(user + "from profilepage");
+// console.log(JSON.stringify(user) + "from profilepage");
 
 //   useEffect(() => {
 //     fetchUser(user?.displayName, user?.uid);

@@ -12,7 +12,7 @@ const Follow = ({ userID }) => {
 
   const user = useSelector((store) => store.user);
 
-  console.log(user + "from Follow");
+  console.log(JSON.stringify(user) + "from Follow");
 
   const startFollowing = () => {
     if (!user) {

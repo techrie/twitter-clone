@@ -1,0 +1,22 @@
+.user {
+  display: flex;
+  flex-direction: row;
+  background: transparent;
+  align-items: center;
+  /* justify-content: space-between; */
+  padding: 10px 20px;
+  border: 1px solid gray;
+}
+
+.user-img {
+  /* width: 100%; */
+  /* margin: 0; */
+  align-self: flex-start;
+  object-fit: contain;
+  border: none;
+}
+
+.user-name {
+  font-size: 20px;
+  margin: 0;
+}
