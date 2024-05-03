@@ -1,5 +1,12 @@
 .profile-container {
-  width: 90vw;
+  width: 40vw;
   margin: 0 auto;
   max-width: 1120px;
+}
+
+.back-home {
+  color: black;
+}
+
+.profile-box {
 }

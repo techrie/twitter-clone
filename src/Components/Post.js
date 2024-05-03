@@ -33,7 +33,7 @@ const Post = ({
                   {username}
                 </span>
               </h4>
-              <p>{createdAt.toDate().toString()}</p>
+              {/* <p>{createdAt?.toDate().toString()}</p> */}
             </div>
           </div>
 

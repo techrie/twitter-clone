@@ -73,7 +73,7 @@ const Sidebar = () => {
           <SidebarOptions Icon={MailOutlineIcon} text="Messages" />
           <SidebarOptions Icon={BookmarkBorderIcon} text="Bookmarks" />
           <SidebarOptions Icon={NotificationsNoneIcon} text="Notifications" />
-          <Link to="/profile">
+          <Link className="profile-link" to="/profile">
             <SidebarOptions
               Icon={PersonOutlineIcon}
               text="Profile"

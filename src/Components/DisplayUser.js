@@ -3,8 +3,12 @@ import TweetBox from "./TweetBox";
 import Post from "./Post";
 import { nanoid } from "nanoid";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "./DisplayUser.css";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import { fetchUser, fetchUserPosts, deletePost } from "./FetchUser";
+import User from "./User";
 
 const DisplayUser = () => {
   const [userInfo, setUserInfo] = useState({});
@@ -13,55 +17,59 @@ const DisplayUser = () => {
   const user = useSelector((store) => store.user);
   // console.log(JSON.stringify(user.uid) + "from DisplayUserPage.....");
 
-  // let postId = "abc"; // get the post id from fetchUserPosts
-
   const handleEditPost = () => {};
   const handleDeletePost = (postId) => {
     deletePost(postId);
   };
 
   const fetchUserDetails = async () => {
-    const userInfo = await fetchUser(user?.uid);
-    console.log(JSON.stringify(userInfo) + "from fetchUser");
-    return JSON.stringify(userInfo);
+    const userInf = await fetchUser(user?.uid);
+    // console.log(userInf + "  from FetchUserDet");
+    // console.log(JSON.stringify(userInf) + "from fetchUser");
+    setUserInfo(JSON.stringify(userInf));
   };
 
   const getUserPosts = async () => {
     const allPosts = await fetchUserPosts(user?.uid);
-    // console.log(Object.values(allPosts));
-    console.log(JSON.stringify(allPosts) + "fetching all Posts for a user");
-    return JSON.stringify(allPosts);
+    // console.log(allPosts + "  from getUserPosts");
+    setPosts(Array.from(allPosts));
+    // console.log(JSON.stringify(allPosts) + "fetching all Posts for a user");
   };
 
   useEffect(() => {
-    const singleUserInfo = fetchUserDetails();
-    setUserInfo(singleUserInfo);
-
-    const newPosts = getUserPosts();
-    setPosts(Array.from(newPosts));
+    fetchUserDetails();
+    getUserPosts();
   }, []);
 
+  console.log(userInfo + " from display user");
   // {"email":"mark@gmail.com","follows":[""],"username":"mark","displayName":"Mark","uid":"wf6c5x7OcphqWJReRdr7z16ZB1N2"}
+  //   console.log(JSON.parse(userInfo));
 
   return (
     <div className="profile-container">
-      <div>
+      <Link className="back-home" to="/home">
+        <ArrowBackIcon />
+      </Link>
+      <div className="profile-box">
         <h1>User Profile with avatar, no of followers, no of tweets</h1>
-
-        <img src="" />
-        <h3>{userInfo.displayName}</h3>
+        {/* <User displayName={JSON.parse(userInfo).displayName} /> */}
+        <img
+          className="user-img"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkoyUQaux4PEUmEPGc7PodeN8XbgC4aOBsug&s"
+        />
+        <h1 className="user-name">{userInfo?.displayName}</h1>
       </div>
 
-      <div>
+      <div className="tweet-box">
         <TweetBox />
       </div>
 
       <div>
         <h3>My Posts</h3>
         {posts?.map((post) => {
+          //   console.log(post.id);
           return (
             <div>
-              <h1>Poojitha</h1>
               <Post
                 key={nanoid()}
                 authorId={post.authorId}
