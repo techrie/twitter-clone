@@ -89,7 +89,7 @@ const DisplayUser = () => {
         {posts?.map((post) => {
           //   console.log(post.id);
           return (
-            <div>
+            <div className="post-container">
               <Post
                 key={nanoid()}
                 authorId={post.authorId}
@@ -104,9 +104,14 @@ const DisplayUser = () => {
                     post.createdAt?.nanoseconds / 1000000
                 ).toLocaleDateString("en-US")}
               />
-              <div>
-                <button onClick={() => setEditBox(true)}>Edit</button>
-                <button onClick={() => handleDeletePost(post.id)}>
+              <div className="editdelete-container">
+                <button className="edit-btn" onClick={() => setEditBox(true)}>
+                  Edit
+                </button>
+                <button
+                  className="delete-btnn"
+                  onClick={() => handleDeletePost(post.id)}
+                >
                   Delete
                 </button>
                 {editBox && <EditPost post={post} setEditBox={setEditBox} />}

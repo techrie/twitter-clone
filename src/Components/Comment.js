@@ -1,5 +1,6 @@
 import { Avatar } from "@mui/material";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import "./Comment.css";
 
 const Comment = ({
   commentId,

@@ -6,6 +6,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PublishIcon from "@mui/icons-material/Publish";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 // import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+
+import { useState } from "react";
 import Comments from "./Comments";
 
 const Post = ({
@@ -18,6 +20,7 @@ const Post = ({
   createdAt,
   comments,
 }) => {
+  const [commentBox, setCommentBox] = useState(false);
   return (
     <div className="post">
       <div className="post-avatar">
@@ -56,7 +59,6 @@ const Post = ({
           // src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHhqdWp4cXVtaWh5N29uMTVwdDN1bW5pcTdlczg2dmhmaTM1MTBheCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JQYJwMKXRmb1viBSBJ/giphy.gif"
           src={image}
         />
-
         <div className="postFooter">
           <ChatBubbleOutlineIcon />
           <RepeatIcon />
@@ -65,6 +67,7 @@ const Post = ({
 
           {/* <Comments /> */}
         </div>
+        {comments && comments.length !== 0 && <Comments />}
       </div>
     </div>
   );

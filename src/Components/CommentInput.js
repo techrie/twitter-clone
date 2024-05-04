@@ -1,3 +1,4 @@
+import "./CommentInput.css";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
@@ -13,7 +14,7 @@ const CommentInput = ({ post, setCommentBox }) => {
   const [comment, setComment] = useState("");
 
   const user = useSelector((store) => store.user);
-  console.log(user + " from CommentInput");
+  console.log(JSON.stringify(user) + " from CommentInput");
 
   const handleChangeComment = (post) => {
     db.collection("posts")
@@ -26,17 +27,17 @@ const CommentInput = ({ post, setCommentBox }) => {
           // username: user?.username,
           displayName: user?.displayName,
           createdAt: firebase.firestore.Timestamp.now(),
-          avatar: "",
+          avatar: user?.photoURL,
           verified: true,
         }),
       });
   };
 
   return (
-    <div className="comment-input">
+    <div className="comment">
       <input
         type="text"
-        className="form-control mt-4 mb-5"
+        className="comment-input form-control mt-4 mb-5"
         value={comment}
         onChange={(e) => {
           setComment(e.target.value);
@@ -44,6 +45,7 @@ const CommentInput = ({ post, setCommentBox }) => {
         placeholder="Add a comment"
       />
       <button
+        className="btn-reply"
         onClick={() => {
           handleChangeComment(post);
           setCommentBox(false);
