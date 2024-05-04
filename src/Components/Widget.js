@@ -78,3 +78,27 @@ const Widgets = () => {
   );
 };
 export default Widgets;
+
+<div className="postHeaderText">
+  <div className="postHeaderInfo">
+    <h4>
+      {displayName}
+      <span className="postHeaderUserName">
+        {verified && <VerifiedUserIcon className="post-badge" />} @{username}
+      </span>
+    </h4>
+    <div>
+      <p>
+        {new Date(
+          createdAt?.seconds * 1000 + createdAt?.nanoseconds / 1000000
+        ).toLocaleDateString("en-US")}
+        <span className="time">
+          {new Date(
+            createdAt?.seconds * 1000 + createdAt?.nanoseconds / 1000000
+          ).toLocaleTimeString()}
+        </span>
+        {/* fireBaseTime.toLocaleTimeString() */}
+      </p>
+    </div>
+  </div>
+</div>;

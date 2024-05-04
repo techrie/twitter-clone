@@ -7,19 +7,33 @@ import { Link } from "react-router-dom";
 import "./DisplayUser.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-import { fetchUser, fetchUserPosts, deletePost } from "./FetchUser";
+import { fetchUser, fetchUserPosts, deletePost, editPost } from "./FetchUser";
 import User from "./User";
+import EditPost from "./EditPost";
 
 const DisplayUser = () => {
   const [userInfo, setUserInfo] = useState({});
   const [posts, setPosts] = useState([]);
 
+  const [editBox, setEditBox] = useState(false);
+
   const user = useSelector((store) => store.user);
   // console.log(JSON.stringify(user.uid) + "from DisplayUserPage.....");
 
-  const handleEditPost = () => {};
+  const getUserPosts = async () => {
+    const allPosts = await fetchUserPosts(user?.uid);
+    // console.log(allPosts + "  from getUserPosts");
+    setPosts(Array.from(allPosts));
+    // console.log(JSON.stringify(allPosts) + "fetching all Posts for a user");
+  };
+
+  const handleEditPost = (postId) => {
+    editPost(postId);
+  };
+
   const handleDeletePost = (postId) => {
     deletePost(postId);
+    getUserPosts();
   };
 
   const fetchUserDetails = async () => {
@@ -27,13 +41,6 @@ const DisplayUser = () => {
     // console.log(userInf + "  from FetchUserDet");
     // console.log(JSON.stringify(userInf) + "from fetchUser");
     setUserInfo(JSON.stringify(userInf));
-  };
-
-  const getUserPosts = async () => {
-    const allPosts = await fetchUserPosts(user?.uid);
-    // console.log(allPosts + "  from getUserPosts");
-    setPosts(Array.from(allPosts));
-    // console.log(JSON.stringify(allPosts) + "fetching all Posts for a user");
   };
 
   useEffect(() => {
@@ -44,6 +51,12 @@ const DisplayUser = () => {
   console.log(userInfo + " from display user");
   // {"email":"mark@gmail.com","follows":[""],"username":"mark","displayName":"Mark","uid":"wf6c5x7OcphqWJReRdr7z16ZB1N2"}
   //   console.log(JSON.parse(userInfo));
+
+  //   const data_from_child = (data) => {
+  //     console.log(data); // or set the data to a state
+  //     // alert();
+  //     getUserPosts();
+  //   };
 
   return (
     <div className="profile-container">
@@ -79,13 +92,17 @@ const DisplayUser = () => {
                 text={post.text}
                 image={post.image}
                 avatar={post.avatar}
-                createdAt={post.createdAt}
+                createdAt={new Date(
+                  post.createdAt?.seconds * 1000 +
+                    post.createdAt?.nanoseconds / 1000000
+                ).toLocaleDateString("en-US")}
               />
               <div>
-                <button onClick={() => handleEditPost(post.id)}>Edit</button>
+                <button onClick={() => setEditBox(true)}>Edit</button>
                 <button onClick={() => handleDeletePost(post.id)}>
                   Delete
                 </button>
+                {editBox && <EditPost post={post} setEditBox={setEditBox} />}
               </div>
             </div>
           );

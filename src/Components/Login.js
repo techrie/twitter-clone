@@ -68,7 +68,8 @@ const Login = () => {
                   username: displayName?.slice(0, 4).toLowerCase(),
                   email: email,
                   displayName: displayName,
-                  follows: [],
+                  follows: [uid],
+                  userId: uid,
                 })
                 .then(() => {
                   console.log(
@@ -151,6 +152,20 @@ const Login = () => {
     // Unsubscribe when component unmounts
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      let uid = auth.currentUser.uid;
+
+      db.collection("users")
+        .doc(uid)
+        .onSnapshot((snapshot) => {
+          // setFname(snapshot.fname);
+          // setLname(snapshot.lname);
+        });
+    } else {
+    }
+  }, [auth]);
 
   return (
     <div className="login">

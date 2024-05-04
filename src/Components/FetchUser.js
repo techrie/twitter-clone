@@ -44,7 +44,7 @@ export const fetchUserPosts = async (userID) => {
       id: post.id,
       ...data,
       author: fetchedUser,
-      createdAt: data.createdAt.toDate().toString(),
+      // createdAt: data.createdAt.toDate().toString(),
     };
   });
   // returns array of objects (posts)
@@ -73,6 +73,15 @@ export const deletePost = (postId) => {
 };
 
 export const editPost = (postId) => {
+  // db.collection("posts")
+  //   .doc(postId)
+  //   .update({
+  //     text: "New Text Update",
+  //   })
+  //   .then(() => {
+  //     console.log("Document successfully updated!");
+  //   });
+
   const post = db.collection("posts").doc(postId).get();
 
   if (!post.exists) return null;

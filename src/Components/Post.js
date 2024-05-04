@@ -25,16 +25,25 @@ const Post = ({
       <div className="postBody">
         <div className="postHeader">
           <div className="postHeaderText">
-            <div className="postHeaderInfo">
-              <h4>
-                {displayName}
-                <span className="postHeaderUserName">
-                  {verified && <VerifiedUserIcon className="post-badge" />} @
-                  {username}
-                </span>
-              </h4>
-              {/* <p>{createdAt?.toDate().toString()}</p> */}
-            </div>
+            <h4>
+              {displayName}
+              <span className="postHeaderUserName">
+                {verified && <VerifiedUserIcon className="post-badge" />} @
+                {username}
+              </span>
+            </h4>
+
+            <p>
+              {new Date(
+                createdAt?.seconds * 1000 + createdAt?.nanoseconds / 1000000
+              ).toLocaleDateString("en-US")}
+              <span className="time">
+                {new Date(
+                  createdAt?.seconds * 1000 + createdAt?.nanoseconds / 1000000
+                ).toLocaleTimeString()}
+              </span>
+              {/* fireBaseTime.toLocaleTimeString() */}
+            </p>
           </div>
 
           <div className="postHeaderDescription">
