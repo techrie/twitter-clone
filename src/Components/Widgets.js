@@ -42,11 +42,14 @@ const Widgets = () => {
   };
 
   const handleFollowUsers = (otherUserId) => {
-    console.log(otherUserId + "  other User id");
-    // console.log(JSON.stringify(db.collection("users")) + "  users collection");
-    db.collection("users").doc(user?.uid).update({
-      // follows: firebase.firestore.FieldValue.arrayUnion(otherUserId),
-    });
+    // db.collection("users").doc(otherUserId).update({
+    //   followerCount: firebase.firestore.FieldValue.increment(1),
+    // });
+    // console.log(otherUserId + "  other User id");
+    // // console.log(JSON.stringify(db.collection("users")) + "  users collection");
+    // db.collection("users").doc(user?.uid).update({
+    //   follows: firebase.firestore.FieldValue.arrayUnion(otherUserId),
+    // });
     fetchUserDetails();
   };
 

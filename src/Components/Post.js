@@ -5,7 +5,8 @@ import RepeatIcon from "@mui/icons-material/Repeat";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PublishIcon from "@mui/icons-material/Publish";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+// import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import Comments from "./Comments";
 
 const Post = ({
   displayName,
@@ -15,6 +16,7 @@ const Post = ({
   image,
   avatar,
   createdAt,
+  comments,
 }) => {
   return (
     <div className="post">
@@ -60,6 +62,7 @@ const Post = ({
           <RepeatIcon />
           <FavoriteBorderIcon />
           <PublishIcon />
+          <Comments />
         </div>
       </div>
     </div>

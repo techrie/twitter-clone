@@ -70,6 +70,8 @@ const Login = () => {
                   displayName: displayName,
                   follows: [uid],
                   userId: uid,
+                  followerCount: 0,
+                  postsCount: 0,
                 })
                 .then(() => {
                   console.log(

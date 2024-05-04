@@ -61,6 +61,7 @@ const Feed = () => {
           image={post.image}
           avatar={post.avatar}
           createdAt={post.createdAt}
+          comments={post.comments}
         />
       ))}
     </div>

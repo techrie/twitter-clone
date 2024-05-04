@@ -27,6 +27,7 @@ const TweetBox = () => {
       avatar:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkoyUQaux4PEUmEPGc7PodeN8XbgC4aOBsug&s",
       createdAt: firebase.firestore.Timestamp.now(),
+      comments: [],
     });
 
     setTweetMessage("");

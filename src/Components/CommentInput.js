@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { Avatar } from "@mui/material";
+import Post from "./Post";
 
 const CommentInput = () => {
   const [comment, setComment] = useState("");
-  const user = useSelector((store) => store.user);
 
-  console.log(user);
+  const user = useSelector((store) => store.user);
+  console.log(user + " from CommentInput");
 
   return (
-    <div className="whiteBg">
+    <div className="comment whiteBg">
       <div className="flex flex-row items-center">
-        <div className="w-12 h-12 overflow-hidden rounded-lg m-4">
+        <div className="comment-avatar w-12 h-12 overflow-hidden rounded-lg m-4">
           <Avatar src="" />
           {/* {user && user.profilePicture} */}
         </div>
@@ -19,7 +21,8 @@ const CommentInput = () => {
             className="px-4"
             onSubmit={(e) => {
               e.preventDefault();
-              postTweet(user.uid, comment, null, tweetID);
+              // postTweet(user.uid, comment, null, tweetID);
+              <Post />;
               setComment("");
             }}
           >

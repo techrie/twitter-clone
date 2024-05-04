@@ -18,7 +18,7 @@ const DisplayUser = () => {
   const [editBox, setEditBox] = useState(false);
 
   const user = useSelector((store) => store.user);
-  // console.log(JSON.stringify(user.uid) + "from DisplayUserPage.....");
+  console.log(JSON.stringify(user) + "from DisplayUserPage.....");
 
   const getUserPosts = async () => {
     const allPosts = await fetchUserPosts(user?.uid);
@@ -71,6 +71,8 @@ const DisplayUser = () => {
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkoyUQaux4PEUmEPGc7PodeN8XbgC4aOBsug&s"
         />
         <h1 className="user-name">{userInfo?.displayName}</h1>
+        <p>{userInfo?.PostsCount} </p>
+        <p>{userInfo?.followerCount}</p>
       </div>
 
       <div className="tweet-box">
