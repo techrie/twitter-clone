@@ -23,7 +23,7 @@ const Widgets = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((store) => store.user);
-  console.log(user?.uid + "  from widgets.....");
+  // console.log(user?.uid + "  from widgets.....");
 
   const fetchUserDetails = async () => {
     const userInf = await fetchUser(user?.uid);
@@ -74,7 +74,7 @@ const Widgets = () => {
       users && users.length !== 0
         ? users.filter((person) => person.email !== user.email)
         : [];
-    console.log(JSON.stringify(otherUsers) + " otherUsers");
+    // console.log(JSON.stringify(otherUsers) + " otherUsers");
     setOtherUsers(otherUserss);
   };
 
@@ -121,7 +121,7 @@ const Widgets = () => {
         {otherUsers &&
           otherUsers.length !== 0 &&
           otherUsers.map((user) => {
-            console.log(JSON.stringify(user) + "  inside Other Users Map");
+            // console.log(JSON.stringify(user) + "  inside Other Users Map");
             return (
               <div key={nanoid()} className="user-info-follow">
                 <User key={nanoid()} displayName={user.displayName} />

@@ -62,7 +62,8 @@ const Post = ({
           <RepeatIcon />
           <FavoriteBorderIcon />
           <PublishIcon />
-          <Comments />
+
+          {/* <Comments /> */}
         </div>
       </div>
     </div>

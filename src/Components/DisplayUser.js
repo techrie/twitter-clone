@@ -10,6 +10,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { fetchUser, fetchUserPosts, deletePost, editPost } from "./FetchUser";
 import User from "./User";
 import EditPost from "./EditPost";
+import CommentInput from "./CommentInput";
 
 const DisplayUser = () => {
   const [userInfo, setUserInfo] = useState({});
@@ -17,8 +18,14 @@ const DisplayUser = () => {
 
   const [editBox, setEditBox] = useState(false);
 
+  const [commentBox, setCommentBox] = useState(false);
+
   const user = useSelector((store) => store.user);
-  console.log(JSON.stringify(user) + "from DisplayUserPage.....");
+  // console.log(JSON.stringify(user) + "from DisplayUserPage.....");
+
+  // const handleComment = () => {
+  //   setCommentBox(true);
+  // };
 
   const getUserPosts = async () => {
     const allPosts = await fetchUserPosts(user?.uid);
@@ -48,9 +55,7 @@ const DisplayUser = () => {
     getUserPosts();
   }, []);
 
-  console.log(userInfo + " from display user");
-  // {"email":"mark@gmail.com","follows":[""],"username":"mark","displayName":"Mark","uid":"wf6c5x7OcphqWJReRdr7z16ZB1N2"}
-  //   console.log(JSON.parse(userInfo));
+  // console.log(userInfo + " from display user");
 
   //   const data_from_child = (data) => {
   //     console.log(data); // or set the data to a state
@@ -105,6 +110,10 @@ const DisplayUser = () => {
                   Delete
                 </button>
                 {editBox && <EditPost post={post} setEditBox={setEditBox} />}
+                <button onClick={() => setCommentBox(true)}>Comment</button>
+                {commentBox && (
+                  <CommentInput post={post} setCommentBox={setCommentBox} />
+                )}
               </div>
             </div>
           );

@@ -21,6 +21,8 @@ const Feed = () => {
       " from posting followees feed js"
   );
 
+  const handleCommentClick = () => {};
+
   useEffect(() => {
     db.collection("posts").onSnapshot((snapshot) => {
       setPosts(
@@ -52,17 +54,20 @@ const Feed = () => {
       <TweetBox />
 
       {posts.map((post) => (
-        <Post
-          key={nanoid()}
-          displayName={post.displayName}
-          username={post.username}
-          verified={post.verified}
-          text={post.text}
-          image={post.image}
-          avatar={post.avatar}
-          createdAt={post.createdAt}
-          comments={post.comments}
-        />
+        <div>
+          <Post
+            key={nanoid()}
+            displayName={post.displayName}
+            username={post.username}
+            verified={post.verified}
+            text={post.text}
+            image={post.image}
+            avatar={post.avatar}
+            createdAt={post.createdAt}
+            comments={post.comments}
+          />
+          <button onClick={handleCommentClick}>Comment</button>
+        </div>
       ))}
     </div>
   );
