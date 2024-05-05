@@ -2,7 +2,7 @@
   display: flex;
   align-items: flex-start;
   padding-bottom: 10px;
-  border-bottom: 1px solid #e6ecf0 !important;
+  border-bottom: 2px solid #e6ecf0 !important;
 }
 
 .comment:hover {

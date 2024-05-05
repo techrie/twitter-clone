@@ -2,16 +2,19 @@ import { Avatar, Button } from "@mui/material";
 import "./TweetBox.css";
 import { useState } from "react";
 import db from "../utils/firebase";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "firebase/compat/firestore";
 
 import firebase from "firebase/compat/app";
+import { refreshPostEvent } from "../utils/postsSlice";
 
 const TweetBox = () => {
   const [tweetMessage, setTweetMessage] = useState("");
   const [tweetImg, setTweetImg] = useState("");
 
   const user = useSelector((store) => store.user);
+
+  const dispatch = useDispatch();
 
   // console.log(user);
 
@@ -20,7 +23,7 @@ const TweetBox = () => {
     db.collection("posts").add({
       authorId: user?.uid,
       displayName: user?.displayName,
-      username: user?.displayName.slice(0, 4).toLowerCase(),
+      username: user?.displayName?.slice(0, 4).toLowerCase(),
       verified: true,
       text: tweetMessage,
       image: tweetImg,
@@ -32,6 +35,8 @@ const TweetBox = () => {
 
     setTweetMessage("");
     setTweetImg("");
+    dispatch(refreshPostEvent(true));
+    dispatch(refreshPostEvent(true));
   };
 
   return (

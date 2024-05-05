@@ -18,6 +18,11 @@
 }
 
 .editdelete-container {
+  /* display: inline-block; */
+      padding-top: 200px;
+    margin-top: 0px;
+    float: left;
+    margin-left: 0px;
 }
 
 .edit-btn {
@@ -43,4 +48,7 @@
   font-weight: 600;
   border-radius: 0.25rem;
   cursor: pointer;
+}
+.editdelete-container{
+
 }

@@ -14,7 +14,6 @@ const Comment = ({
 }) => {
   return (
     <div>
-      Comment
       <div className="comment">
         <div className="comment-avatar">
           <Avatar src={avatar} />
@@ -24,7 +23,7 @@ const Comment = ({
           <div className="commentHeader">
             <div className="commentHeaderText">
               <h4>
-                {displayName}
+                {displayName && displayName.length > 0 ? displayName : ""}
                 <span className="commentHeaderUserName">
                   {verified && <VerifiedUserIcon className="comment-badge" />} @
                   {username}
@@ -45,7 +44,7 @@ const Comment = ({
             </div>
 
             <div className="commentHeaderDescription">
-              <p>{commentText}</p>
+              <p>{commentText ? commentText : ""}</p>
             </div>
           </div>
         </div>

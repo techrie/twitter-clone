@@ -1,6 +1,6 @@
 import "./CommentInput.css";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
 import Post from "./Post";
 import db from "../utils/firebase";
@@ -9,6 +9,7 @@ import { nanoid } from "nanoid";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import { isCommentEdit } from "../utils/postsSlice";
 
 const CommentInput = ({ post, setCommentBox }) => {
   const [comment, setComment] = useState("");
@@ -16,7 +17,10 @@ const CommentInput = ({ post, setCommentBox }) => {
   const user = useSelector((store) => store.user);
   console.log(JSON.stringify(user) + " from CommentInput");
 
+  const dispatch = useDispatch();
+
   const handleChangeComment = (post) => {
+    console.log(post, "postid");
     db.collection("posts")
       .doc(post.id)
       .update({
@@ -31,6 +35,7 @@ const CommentInput = ({ post, setCommentBox }) => {
           verified: true,
         }),
       });
+    dispatch(isCommentEdit(true));
   };
 
   return (
@@ -48,7 +53,7 @@ const CommentInput = ({ post, setCommentBox }) => {
         className="btn-reply"
         onClick={() => {
           handleChangeComment(post);
-          setCommentBox(false);
+          setCommentBox(!comment);
         }}
       >
         Reply

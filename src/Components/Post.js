@@ -7,8 +7,10 @@ import PublishIcon from "@mui/icons-material/Publish";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 // import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Comments from "./Comments";
+import CommentInput from "./CommentInput";
+import { useSelector } from "react-redux";
 
 const Post = ({
   displayName,
@@ -19,8 +21,11 @@ const Post = ({
   avatar,
   createdAt,
   comments,
+  id,
 }) => {
   const [commentBox, setCommentBox] = useState(false);
+  const isComment = useSelector((store) => store.isComment);
+  useEffect(() => {}, [isComment]);
   return (
     <div className="post">
       <div className="post-avatar">
@@ -59,15 +64,34 @@ const Post = ({
           // src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHhqdWp4cXVtaWh5N29uMTVwdDN1bW5pcTdlczg2dmhmaTM1MTBheCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JQYJwMKXRmb1viBSBJ/giphy.gif"
           src={image}
         />
+
         <div className="postFooter">
-          <ChatBubbleOutlineIcon />
+          <ChatBubbleOutlineIcon onClick={() => setCommentBox(!commentBox)} />
           <RepeatIcon />
           <FavoriteBorderIcon />
-          <PublishIcon />
+          {/* <PublishIcon /> */}
+
+          {commentBox && (
+            <CommentInput
+              post={{
+                displayName,
+                username,
+                verified,
+                text,
+                image,
+                avatar,
+                createdAt,
+                comments,
+                id,
+              }}
+              setCommentBox={setCommentBox}
+            />
+          )}
 
           {/* <Comments /> */}
         </div>
-        {comments && comments.length !== 0 && <Comments />}
+
+        {comments && comments.length !== 0 && <Comments comments={comments} />}
       </div>
     </div>
   );

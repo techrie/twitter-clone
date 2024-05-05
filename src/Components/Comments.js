@@ -6,16 +6,16 @@ import { useSelector } from "react-redux";
 import db from "../utils/firebase";
 import Post from "./Post";
 
-const Comments = () => {
-  const [comments, setComments] = useState([]);
+const Comments = ({comments}) => {
+  // const [comments, setComments] = useState([]);
 
   const user = useSelector((store) => store.user);
   // console.log(user?.uid + "  from Comments.....");
 
   useEffect(() => {
-    db.collection("posts").onSnapshot((snapshot) => {
-      setComments(snapshot?.docs.map((doc) => doc.data().comments));
-    });
+    // db.collection("posts").onSnapshot((snapshot) => {
+    //   setComments(snapshot?.docs.map((doc) => doc.data().comments));
+    // });
   }, []);
 
   return (
@@ -25,9 +25,9 @@ const Comments = () => {
         comments.map((comment) => (
           <Comment
             key={nanoid()}
-            displayName={user.displayName}
-            username={user.username}
-            commentText={comment?.text}
+            displayName={comment?.displayName}
+            username={comment?.displayName}
+            commentText={comment?.commentText}
             createdAt={comment?.createdAt}
             // verified={}
             avatar=""

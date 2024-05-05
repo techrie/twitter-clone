@@ -28,7 +28,25 @@ export const fetchUser = async (userId) => {
   }
 };
 
+const getAuthorPosts = async (id) => {
+  const fetchedUser = await fetchUser(id);
+  const postsQuerySnapShot = await db
+    .collection("posts")
+    .where("authorId", "==", id)
+    .get();
+  const posts = postsQuerySnapShot.docs.map((post) => {
+    const data = post.data();
+    return {
+      id: post.id,
+      ...data,
+      author: fetchedUser,
+      // createdAt: data.createdAt.toDate().toString(),
+    };
+  });
+  return posts;
+};
 export const fetchUserPosts = async (userID) => {
+  debugger;
   const postsQuerySnapShot = await db
     .collection("posts")
     .where("authorId", "==", userID)
@@ -38,7 +56,15 @@ export const fetchUserPosts = async (userID) => {
 
   // tweets = tweets Array of  Objects
   const posts = postsQuerySnapShot.docs.map((post) => {
+    debugger;
     const data = post.data();
+    const followsIdList = data?.follows;
+    let dataObj = [];
+    followsIdList &&
+      followsIdList.map((id) => {
+        debugger;
+        dataObj.push(getAuthorPosts(id));
+      });
 
     return {
       id: post.id,

@@ -23,7 +23,7 @@ const Widgets = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((store) => store.user);
-  // console.log(user?.uid + "  from widgets.....");
+  console.log(user?.uid + "  from widgets.....");
 
   const fetchUserDetails = async () => {
     const userInf = await fetchUser(user?.uid);
@@ -33,23 +33,28 @@ const Widgets = () => {
         " from fetchUser in Widgets for follows"
     );
     setUserDet(JSON.stringify(userInf));
-
-    dispatch(
-      addUserFollowees({
-        followees: userInf?.follows,
-      })
-    );
   };
 
-  const handleFollowUsers = (otherUserId) => {
-    // db.collection("users").doc(otherUserId).update({
-    //   followerCount: firebase.firestore.FieldValue.increment(1),
-    // });
-    // console.log(otherUserId + "  other User id");
-    // // console.log(JSON.stringify(db.collection("users")) + "  users collection");
-    // db.collection("users").doc(user?.uid).update({
-    //   follows: firebase.firestore.FieldValue.arrayUnion(otherUserId),
-    // });
+  const handleFollowUsers = (userId) => {
+    console.log(user?.uid + " checking user uid from widgets");
+    // db.collection("users")
+    //   .doc(otherUserId)
+    //   .update({
+    //     followerCount: firebase.firestore.FieldValue.increment(1),
+    //   });
+    console.log(userId + "  other User id");
+    console.log(firebase.firestore);
+    // console.log(JSON.stringify(db.collection("users")) + "  users collection");
+    db.collection("users")
+      .doc(user?.uid)
+      .update({
+        follows: firebase?.firestore?.FieldValue?.arrayUnion(userId),
+      });
+    // // dispatch(
+    // //   addUserFollowees({
+    // //     followees: userInf?.follows,
+    // //   })
+    // );
     fetchUserDetails();
   };
 
@@ -62,7 +67,7 @@ const Widgets = () => {
     );
     // getOtherUsers();
     fetchUserDetails();
-    handleFollowUsers();
+    // handleFollowUsers();
   }, []);
 
   useEffect(() => {
@@ -72,7 +77,7 @@ const Widgets = () => {
   const getOtherUsers = () => {
     let otherUserss =
       users && users.length !== 0
-        ? users.filter((person) => person.email !== user.email)
+        ? users.filter((person) => person?.email !== user?.email)
         : [];
     // console.log(JSON.stringify(otherUsers) + " otherUsers");
     setOtherUsers(otherUserss);
@@ -121,7 +126,7 @@ const Widgets = () => {
         {otherUsers &&
           otherUsers.length !== 0 &&
           otherUsers.map((user) => {
-            // console.log(JSON.stringify(user) + "  inside Other Users Map");
+            console.log(JSON.stringify(user) + "  inside Other Users Map");
             return (
               <div key={nanoid()} className="user-info-follow">
                 <User key={nanoid()} displayName={user.displayName} />

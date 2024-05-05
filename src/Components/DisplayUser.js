@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TweetBox from "./TweetBox";
 import Post from "./Post";
 import { nanoid } from "nanoid";
@@ -11,6 +11,7 @@ import { fetchUser, fetchUserPosts, deletePost, editPost } from "./FetchUser";
 import User from "./User";
 import EditPost from "./EditPost";
 import CommentInput from "./CommentInput";
+import { inEditMode } from "../utils/postsSlice";
 
 const DisplayUser = () => {
   const [userInfo, setUserInfo] = useState({});
@@ -19,6 +20,11 @@ const DisplayUser = () => {
   const [editBox, setEditBox] = useState(false);
 
   const [commentBox, setCommentBox] = useState(false);
+  const [editId, setEditId] = useState("");
+
+  const dispatch = useDispatch();
+
+  const isEditMode = useSelector((store) => store.post);
 
   const user = useSelector((store) => store.user);
   // console.log(JSON.stringify(user) + "from DisplayUserPage.....");
@@ -53,8 +59,13 @@ const DisplayUser = () => {
   useEffect(() => {
     fetchUserDetails();
     getUserPosts();
+    dispatch(inEditMode(false));
   }, []);
 
+  useEffect(() => {
+    getUserPosts();
+    dispatch(inEditMode(false));
+  }, [isEditMode]);
   // console.log(userInfo + " from display user");
 
   //   const data_from_child = (data) => {
@@ -99,13 +110,20 @@ const DisplayUser = () => {
                 text={post.text}
                 image={post.image}
                 avatar={post.avatar}
-                createdAt={new Date(
-                  post.createdAt?.seconds * 1000 +
-                    post.createdAt?.nanoseconds / 1000000
-                ).toLocaleDateString("en-US")}
+                // createdAt={new Date(
+                //   post.createdAt?.seconds * 1000 +
+                //     post.createdAt?.nanoseconds / 1000000
+                // ).toLocaleDateString("en-US")}
+                createdAt={post.createdAt}
               />
               <div className="editdelete-container">
-                <button className="edit-btn" onClick={() => setEditBox(true)}>
+                <button
+                  className="edit-btn"
+                  onClick={() => {
+                    setEditBox(true);
+                    setEditId(post.id);
+                  }}
+                >
                   Edit
                 </button>
                 <button
@@ -114,11 +132,17 @@ const DisplayUser = () => {
                 >
                   Delete
                 </button>
-                {editBox && <EditPost post={post} setEditBox={setEditBox} />}
-                <button onClick={() => setCommentBox(true)}>Comment</button>
+                {editBox && editId === post.id && (
+                  <EditPost
+                    post={post}
+                    setEditBox={setEditBox}
+                    editId={post.id}
+                  />
+                )}
+                {/* <button onClick={() => setCommentBox(true)}>Comment</button>
                 {commentBox && (
                   <CommentInput post={post} setCommentBox={setCommentBox} />
-                )}
+                )} */}
               </div>
             </div>
           );

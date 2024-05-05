@@ -19,15 +19,16 @@ const Body = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        const { uid, email, displayName, photoURL } = user;
-        dispatch(
-          addUser({
-            uid: uid,
-            email: email,
-            displayName: displayName,
-            photoURL: photoURL,
-          })
-        );
+        const { uid, email, displayName, photoURL, follows } = user;
+        // dispatch(
+        //   addUser({
+        //     uid: uid,
+        //     email: email,
+        //     displayName: displayName,
+        //     photoURL: photoURL,
+        //     follows: follows,
+        //   })
+        // );
         navigate("/home");
       } else {
         // User is signed out

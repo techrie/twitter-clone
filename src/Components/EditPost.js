@@ -5,9 +5,12 @@ import "./EditPost.css";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import { inEditMode } from "../utils/postsSlice";
+import { useDispatch } from "react-redux";
 
-const EditPost = ({ post, setEditBox }) => {
+const EditPost = ({ post, setEditBox, editId }) => {
   const [text, setText] = useState("");
+  const dispatch = useDispatch();
 
   const editPosts = (post) => {
     db.collection("posts")
@@ -16,6 +19,7 @@ const EditPost = ({ post, setEditBox }) => {
       .catch((err) => {
         console.log(err);
       });
+    dispatch(inEditMode(true));
   };
 
   return (
@@ -35,7 +39,7 @@ const EditPost = ({ post, setEditBox }) => {
           setEditBox(false);
         }}
       >
-        Update Text
+        Update Post
       </button>
     </div>
   );
