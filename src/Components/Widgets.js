@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./Widgets.css";
+import "./widgetsComp.css";
 import SearchIcon from "@mui/icons-material/Search";
 import User from "./User";
 import db from "../utils/firebase";
@@ -118,11 +118,16 @@ const Widgets = () => {
 
         <div className="widgetsContainer">
           {filteredUsers.map((user) => (
-            <User key={nanoid()} displayName={user.displayName} />
+            <User
+              key={nanoid()}
+              displayName={user.displayName}
+              className="widgets-user"
+            />
           ))}
         </div>
       </div>
       <div className="users-follow">
+        <h3>Who to follow</h3>
         {otherUsers &&
           otherUsers.length !== 0 &&
           otherUsers.map((user) => {

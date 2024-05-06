@@ -24,6 +24,8 @@ const Post = ({
   id,
 }) => {
   const [commentBox, setCommentBox] = useState(false);
+  const [editCommentId, setEditCommentId] = useState("");
+
   const isComment = useSelector((store) => store.isComment);
   useEffect(() => {}, [isComment]);
   return (
@@ -66,12 +68,17 @@ const Post = ({
         />
 
         <div className="postFooter">
-          <ChatBubbleOutlineIcon onClick={() => setCommentBox(!commentBox)} />
+          <ChatBubbleOutlineIcon
+            onClick={() => {
+              setCommentBox(!commentBox);
+              setEditCommentId(id);
+            }}
+          />
           <RepeatIcon />
           <FavoriteBorderIcon />
           {/* <PublishIcon /> */}
 
-          {commentBox && (
+          {commentBox && editCommentId === id && (
             <CommentInput
               post={{
                 displayName,
@@ -85,13 +92,17 @@ const Post = ({
                 id,
               }}
               setCommentBox={setCommentBox}
+              editCommentId={id}
             />
           )}
 
           {/* <Comments /> */}
         </div>
-
-        {comments && comments.length !== 0 && <Comments comments={comments} />}
+        <div className="comments-container">
+          {comments && comments.length !== 0 && (
+            <Comments comments={comments} />
+          )}
+        </div>
       </div>
     </div>
   );

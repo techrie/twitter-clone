@@ -44,7 +44,9 @@ const Widgets = () => {
             onClick={() => {
               console.log(searchText);
               const filteredUsers = users.filter((user) =>
-                user.displayName
+                user?.displayName
+                  ?.split(" ")
+                  .join("")
                   .toLowerCase()
                   .includes(searchText.toLowerCase())
               );

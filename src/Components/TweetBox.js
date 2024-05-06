@@ -23,7 +23,11 @@ const TweetBox = () => {
     db.collection("posts").add({
       authorId: user?.uid,
       displayName: user?.displayName,
-      username: user?.displayName?.slice(0, 4).toLowerCase(),
+      username: user?.displayName
+        ?.split(" ")
+        .join("")
+        .slice(0, 4)
+        .toLowerCase(),
       verified: true,
       text: tweetMessage,
       image: tweetImg,
@@ -35,7 +39,6 @@ const TweetBox = () => {
 
     setTweetMessage("");
     setTweetImg("");
-    dispatch(refreshPostEvent(true));
     dispatch(refreshPostEvent(true));
   };
 

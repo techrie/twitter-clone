@@ -4,20 +4,23 @@
 
 .edit-input {
   margin: 5px;
-  padding: 10px;
-  background: var(--twitter-background);
+  padding: 12px;
+  /* background: var(--twitter-background); */
+  background: transparent;
   color: black;
   border-radius: 0.25rem;
+  font-size: 16px;
 }
 
 .btn-updateText {
-  background: #50b7f5;
-  color: white;
   padding: 0.15rem 0.3rem;
+  background: rgb(85, 85, 85);
+  color: white;
+  padding: 0.25rem 0.5rem;
   border: transparent;
   display: inline-block;
   font-size: 14px;
   font-weight: 600;
-  border-radius: 0.25rem;
+  border-radius: 30px;
   cursor: pointer;
 }

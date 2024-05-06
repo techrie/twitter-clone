@@ -14,3 +14,11 @@ const User = ({ displayName }) => {
   );
 };
 export default User;
+
+/*
+<SomeIcon className="svg_icons"/>
+
+.svg_icons {
+  transform: scale(1.8);
+}
+*/

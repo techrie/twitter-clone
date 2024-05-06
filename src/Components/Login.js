@@ -66,7 +66,11 @@ const Login = () => {
               db.collection("users")
                 .doc(uid)
                 .set({
-                  username: displayName?.slice(0, 4).toLowerCase(),
+                  username: displayName
+                    ?.split(" ")
+                    .join("")
+                    .slice(0, 4)
+                    .toLowerCase(),
                   email: email,
                   displayName: displayName,
                   follows: [uid],

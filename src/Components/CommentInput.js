@@ -11,7 +11,7 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { isCommentEdit } from "../utils/postsSlice";
 
-const CommentInput = ({ post, setCommentBox }) => {
+const CommentInput = ({ post, setCommentBox, editCommentId }) => {
   const [comment, setComment] = useState("");
 
   const user = useSelector((store) => store.user);
@@ -19,7 +19,8 @@ const CommentInput = ({ post, setCommentBox }) => {
 
   const dispatch = useDispatch();
 
-  const handleChangeComment = (post) => {
+  const handleChangeComment = (e, post) => {
+    e.preventDefault();
     console.log(post, "postid");
     db.collection("posts")
       .doc(post.id)
@@ -28,7 +29,11 @@ const CommentInput = ({ post, setCommentBox }) => {
           commentId: nanoid(),
           userId: user?.uid,
           commentText: comment,
-          // username: user?.username,
+          username: user?.displayName
+            ?.split(" ")
+            .join("")
+            .slice(0, 4)
+            .toLowerCase(),
           displayName: user?.displayName,
           createdAt: firebase.firestore.Timestamp.now(),
           avatar: user?.photoURL,
@@ -40,24 +45,27 @@ const CommentInput = ({ post, setCommentBox }) => {
 
   return (
     <div className="comment">
-      <input
-        type="text"
-        className="comment-input form-control mt-4 mb-5"
-        value={comment}
-        onChange={(e) => {
-          setComment(e.target.value);
-        }}
-        placeholder="Add a comment"
-      />
-      <button
-        className="btn-reply"
-        onClick={() => {
-          handleChangeComment(post);
-          setCommentBox(!comment);
-        }}
-      >
-        Reply
-      </button>
+      <form>
+        <input
+          type="text"
+          className="comment-input"
+          value={comment}
+          onChange={(e) => {
+            setComment(e.target.value);
+          }}
+          placeholder="Add a comment"
+        />
+
+        <button
+          className="btn-reply"
+          onClick={(e) => {
+            handleChangeComment(post);
+            setCommentBox(!comment);
+          }}
+        >
+          Reply
+        </button>
+      </form>
     </div>
   );
 };

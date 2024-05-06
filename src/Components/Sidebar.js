@@ -9,6 +9,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -88,11 +89,16 @@ const Sidebar = () => {
           <img className="user-img" src={user?.photoURL} alt="avatar_logo" />
           <div className="user-name">
             <h4>{user?.displayName}</h4>
-            <h5>@{user?.displayName?.slice(0, 4).toLowerCase()}</h5>
+            <h5>
+              @
+              {user?.displayName?.split(" ").join("").slice(0, 4).toLowerCase()}
+            </h5>
           </div>
-          <button className="btn" onClick={handleSignOut}>
+          <LogoutIcon className="btn" onClick={handleSignOut} />
+
+          {/* <button className="btn" onClick={handleSignOut}>
             signout
-          </button>
+          </button> */}
         </div>
       </div>
     </>

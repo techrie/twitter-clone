@@ -28,7 +28,7 @@ const EditPost = ({ post, setEditBox, editId }) => {
       <input
         className="edit-input"
         type="text"
-        placeholder="Enter text to be updated"
+        placeholder="Enter text"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />

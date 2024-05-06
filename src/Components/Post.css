@@ -2,7 +2,12 @@
   display: flex;
   align-items: flex-start;
   padding-bottom: 10px;
-  border-bottom: 2px solid #e6f0ef00 !important;
+  border-bottom: 2px solid #e6ecf0 !important;
+}
+
+.post:hover {
+  /* background: #eff2eff5; */
+  background: rgb(244, 243, 243);
 }
 
 .post-avatar {
@@ -33,8 +38,7 @@
 
 .postHeaderText p {
   display: inline-block;
-  /* padding: 0; */
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: -5px;
 }
 
@@ -43,24 +47,31 @@
 }
 
 .postHeaderUserName {
-  font-size: 20px !important;
+  font-size: 18px !important;
   font-weight: 400;
   color: rgb(67, 65, 65);
   cursor: pointer;
 }
 
 .post-badge {
-  font-size: 18px !important;
+  font-size: 16px !important;
   color: #50b7f5;
   margin-bottom: -3px !important;
 }
 
 .postHeaderDescription {
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 18px;
+}
+
+.postHeaderDescription p {
+  margin: 0;
+  margin-top: 5px;
 }
 
 .postBody > img {
+  width: 450px;
+  object-fit: contain;
   border-radius: 20px;
   cursor: pointer;
 }
@@ -70,4 +81,8 @@
   justify-content: space-between;
   margin-top: 20px;
   cursor: pointer;
+}
+
+.comments-container {
+  margin-left: -40px;
 }

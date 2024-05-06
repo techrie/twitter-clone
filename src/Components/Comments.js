@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import db from "../utils/firebase";
 import Post from "./Post";
 
-const Comments = ({comments}) => {
+const Comments = ({ comments }) => {
   // const [comments, setComments] = useState([]);
 
   const user = useSelector((store) => store.user);
@@ -18,6 +18,8 @@ const Comments = ({comments}) => {
     // });
   }, []);
 
+  // displayName.split(" ").join("");
+
   return (
     <div className="comments-container">
       {comments &&
@@ -26,11 +28,15 @@ const Comments = ({comments}) => {
           <Comment
             key={nanoid()}
             displayName={comment?.displayName}
-            username={comment?.displayName}
+            username={comment?.displayName
+              ?.split(" ")
+              .join("")
+              .slice(0, 4)
+              .toLowerCase()}
             commentText={comment?.commentText}
             createdAt={comment?.createdAt}
             // verified={}
-            avatar=""
+            avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkoyUQaux4PEUmEPGc7PodeN8XbgC4aOBsug&s"
           />
         ))}
     </div>
