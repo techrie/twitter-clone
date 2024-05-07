@@ -50,7 +50,7 @@ const Widgets = () => {
                   .toLowerCase()
                   .includes(searchText.toLowerCase())
               );
-              console.log(users);
+              console.log(users, " from widgets users");
 
               // error handling
               setFilteredUsers(filteredUsers);
@@ -59,15 +59,21 @@ const Widgets = () => {
             <SearchIcon />
           </button>
         </div>
-
+        console.log(filteredUsers + " from filtered users");
+        filteredUsers?.length === 0 ? (
+        <div className="Nouserwidgets">
+          <h1>No user found</h1>
+        </div>
+        ) : (
         <div className="widgetsContainer">
-          {filteredUsers.map((user) => (
+          {filteredUsers?.map((user) => (
             <User key={nanoid()} displayName={user.displayName} />
           ))}
         </div>
+        )
       </div>
       <div className="users-follow">
-        {otherUsers.map((user) => {
+        {otherUsers?.map((user) => {
           return (
             <div key={nanoid()} className="user-info-follow">
               <User key={nanoid()} displayName={user.displayName} />

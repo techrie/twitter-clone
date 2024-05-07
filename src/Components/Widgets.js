@@ -115,18 +115,19 @@ const Widgets = () => {
             <SearchIcon />
           </button>
         </div>
-
-        <div className="widgetsContainer">
-          {filteredUsers.map((user) => (
-            <User
-              key={nanoid()}
-              displayName={user.displayName}
-              className="widgets-user"
-            />
-          ))}
-        </div>
+        {filteredUsers?.length === 0 ? (
+          <div className="Nouserwidgets">
+            <h3>No user found</h3>
+          </div>
+        ) : (
+          <div className="widgetsContainer">
+            {filteredUsers?.map((user) => (
+              <User key={nanoid()} displayName={user.displayName} />
+            ))}
+          </div>
+        )}
       </div>
-      <div className="users-follow">
+      {/* <div className="users-follow">
         <h3>Who to follow</h3>
         {otherUsers &&
           otherUsers.length !== 0 &&
@@ -144,6 +145,30 @@ const Widgets = () => {
               </div>
             );
           })}
+      </div>
+       */}
+      <div className="users-follow">
+        <h3>Who to follow</h3>
+        {otherUsers?.length === 0 ? (
+          <div>
+            <h4>No users to follow</h4>
+          </div>
+        ) : (
+          otherUsers?.map((user) => {
+            console.log(JSON.stringify(user) + "  inside Other Users Map");
+            return (
+              <div key={nanoid()} className="user-info-follow">
+                <User key={nanoid()} displayName={user.displayName} />
+                <button
+                  className="follow-btn"
+                  onClick={() => handleFollowUsers(user.userId)}
+                >
+                  Follow
+                </button>
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );

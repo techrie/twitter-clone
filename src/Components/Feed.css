@@ -23,3 +23,7 @@
   font-weight: 800;
   cursor: pointer;
 }
+
+.no-posts {
+  margin-left: 200px;
+}

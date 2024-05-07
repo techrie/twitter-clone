@@ -92,6 +92,7 @@ const Feed = () => {
     fetchUserPosts(user);
     dispatch(isCommentEdit(false));
   }, [user, isComment, refreshPost]);
+
   useEffect(() => {
     console.log(posts, "posts");
     setPosts(posts);
@@ -102,23 +103,30 @@ const Feed = () => {
   return (
     <div className="feed">
       <TweetBox />
-      {posts.map((post) => (
-        <div>
-          <Post
-            key={nanoid()}
-            displayName={post.displayName}
-            username={post.username}
-            verified={post.verified}
-            text={post.text}
-            image={post.image}
-            avatar={post.avatar}
-            createdAt={post.createdAt}
-            comments={post.comments}
-            id={post.id}
-          />
-          {/* <button onClick={handleCommentClick}>Comment</button> */}
+
+      {posts?.length === 0 ? (
+        <div className="no-posts">
+          <h3>No posts by User. Please add a post!</h3>
         </div>
-      ))}
+      ) : (
+        posts?.map((post) => (
+          <div>
+            <Post
+              key={nanoid()}
+              displayName={post.displayName}
+              username={post.username}
+              verified={post.verified}
+              text={post.text}
+              image={post.image}
+              avatar={post.avatar}
+              createdAt={post.createdAt}
+              comments={post.comments}
+              id={post.id}
+            />
+            {/* <button onClick={handleCommentClick}>Comment</button> */}
+          </div>
+        ))
+      )}
     </div>
   );
 };
