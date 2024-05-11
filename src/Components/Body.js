@@ -8,8 +8,6 @@ import { useEffect } from "react";
 
 import { onAuthStateChanged } from "firebase/auth";
 
-import { Outlet } from "react-router-dom";
-
 const Body = () => {
   const auth = getAuth();
 

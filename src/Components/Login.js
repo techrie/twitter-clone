@@ -1,23 +1,19 @@
-import { useRef, useState } from "react";
 import "./Login.css";
+import { useRef, useState } from "react";
 import XIcon from "@mui/icons-material/X";
 import { checkValidData } from "../utils/validate";
-
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { onAuthStateChanged } from "firebase/auth";
-import { addUser, removeUser } from "../utils/userSlice";
-
 import { getAuth } from "firebase/auth";
 import db from "../utils/firebase";
+import { addUser, removeUser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -75,8 +71,8 @@ const Login = () => {
                   displayName: displayName,
                   follows: [uid],
                   userId: uid,
-                  // followerCount: 0,
-                  // postsCount: 0,
+                  followerCount: 0,
+                  bio: { designation: "", manager: "", tenure: "" },
                 })
                 .then(() => {
                   console.log(
@@ -89,11 +85,6 @@ const Login = () => {
                     error
                   );
                 });
-
-              db.collection("connections").add({
-                followerId: uid,
-                followeeId: uid,
-              });
 
               dispatch(
                 addUser({
@@ -163,19 +154,19 @@ const Login = () => {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    if (auth.currentUser) {
-      let uid = auth.currentUser.uid;
+  // useEffect(() => {
+  //   if (auth.currentUser) {
+  //     let uid = auth.currentUser.uid;
 
-      db.collection("users")
-        .doc(uid)
-        .onSnapshot((snapshot) => {
-          // setFname(snapshot.fname);
-          // setLname(snapshot.lname);
-        });
-    } else {
-    }
-  }, [auth]);
+  //     db.collection("users")
+  //       .doc(uid)
+  //       .onSnapshot((snapshot) => {
+  //         // setFname(snapshot.fname);
+  //         // setLname(snapshot.lname);
+  //       });
+  //   } else {
+  //   }
+  // }, [auth]);
 
   return (
     <div className="login">

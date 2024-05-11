@@ -10,10 +10,10 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { fetchUser } from "./FetchUser";
-import { addUserFollowees } from "../utils/postsSlice";
+
+import { checkFollowing } from "../utils/userSlice";
 
 const Widgets = () => {
-  // debugger;
   const [users, setNewUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [otherUsers, setOtherUsers] = useState([]);
@@ -22,8 +22,21 @@ const Widgets = () => {
 
   const dispatch = useDispatch();
 
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [userFollowId, setUserFollowId] = useState("");
+
+  //added
+  // const [checkIsFollowing, setCheckIsFollowing] = useState(false);
+
   const user = useSelector((store) => store.user);
+
   console.log(user?.uid + "  from widgets.....");
+
+  const checkIsFollowing = useSelector((store) => store.user?.checkIsFollowing);
+
+  console.log(
+    JSON.stringify(checkIsFollowing) + "  from widgets checkIs Following....."
+  );
 
   const fetchUserDetails = async () => {
     const userInf = await fetchUser(user?.uid);
@@ -37,24 +50,23 @@ const Widgets = () => {
 
   const handleFollowUsers = (userId) => {
     console.log(user?.uid + " checking user uid from widgets");
-    // db.collection("users")
-    //   .doc(otherUserId)
-    //   .update({
-    //     followerCount: firebase.firestore.FieldValue.increment(1),
-    //   });
     console.log(userId + "  other User id");
-    console.log(firebase.firestore);
-    // console.log(JSON.stringify(db.collection("users")) + "  users collection");
+
     db.collection("users")
       .doc(user?.uid)
       .update({
         follows: firebase?.firestore?.FieldValue?.arrayUnion(userId),
       });
-    // // dispatch(
-    // //   addUserFollowees({
-    // //     followees: userInf?.follows,
-    // //   })
-    // );
+
+    //updated
+    db.collection("users")
+      .doc(userId)
+      .update({
+        followerCount: firebase?.firestore?.FieldValue?.increment(1),
+      });
+    dispatch(checkFollowing(true));
+    setUserFollowId(userId);
+    setIsFollowing(true);
     fetchUserDetails();
   };
 
@@ -65,14 +77,10 @@ const Widgets = () => {
     db.collection("users").onSnapshot((snapshot) =>
       setFilteredUsers(snapshot?.docs.map((doc) => doc.data()))
     );
-    // getOtherUsers();
+
     fetchUserDetails();
     // handleFollowUsers();
   }, []);
-
-  useEffect(() => {
-    getOtherUsers();
-  }, [users]);
 
   const getOtherUsers = () => {
     let otherUserss =
@@ -82,6 +90,10 @@ const Widgets = () => {
     // console.log(JSON.stringify(otherUsers) + " otherUsers");
     setOtherUsers(otherUserss);
   };
+
+  useEffect(() => {
+    getOtherUsers();
+  }, [users, checkIsFollowing]);
 
   return (
     <div className="widgets">
@@ -117,7 +129,7 @@ const Widgets = () => {
         </div>
         {filteredUsers?.length === 0 ? (
           <div className="Nouserwidgets">
-            <h3>No user found</h3>
+            <h3>No matching user found</h3>
           </div>
         ) : (
           <div className="widgetsContainer">
@@ -163,7 +175,9 @@ const Widgets = () => {
                   className="follow-btn"
                   onClick={() => handleFollowUsers(user.userId)}
                 >
-                  Follow
+                  {userFollowId === user.userId && isFollowing
+                    ? "Following"
+                    : "Follow"}
                 </button>
               </div>
             );

@@ -27,3 +27,20 @@
 .no-posts {
   margin-left: 200px;
 }
+
+.pagination {
+  display: flex;
+  border: 1px solid #fff;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.pagination button {
+  padding: 10px;
+}
+
+.active {
+  background: black;
+  color: #fff;
+  border: 1px solid #fff;
+}

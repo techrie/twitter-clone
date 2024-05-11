@@ -82,19 +82,52 @@
 }
 
 .post-container .postt {
-  width: 650px;
+  width: 600px;
   flex-shrink: 0;
 }
 
 .post-container .editdelete-container {
   width: 200px;
+  height: 167px;
   flex-shrink: 0;
   margin-top: 0px;
   margin-left: 0px;
-  padding: 30px;
+  /* padding: 30px; */
+}
+
+.dropdown-btn {
+  padding: 5px;
+  font-size: 16px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.menu {
+  /* position: absolute;
+  margin: 5px 0;
+  padding: 0;
+  border: 1px solid grey;
+  */
+  position: absolute;
+  z-index: 10;
+  list-style-type: none;
+  display: flex;
+  gap: 5px;
+  /* width: 150px; */
+}
+
+.menu > li {
+  margin: 0;
+  background-color: white;
 }
 
 .edit-btn {
+  padding: 5px;
+  font-size: 16px;
+
+  /*
   background: black;
   color: white;
   padding: 0.25rem 0.5rem;
@@ -106,9 +139,14 @@
   cursor: pointer;
   margin-right: 10px;
   letter-spacing: 1px;
+  */
 }
 
 .delete-btnn {
+  padding: 5px;
+  font-size: 16px;
+
+  /*
   background: black;
   color: white;
   padding: 0.25rem 0.5rem;
@@ -118,4 +156,23 @@
   font-weight: 600;
   border-radius: 30px;
   cursor: pointer;
+  */
 }
+
+/*
+
+.menu > li > button {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 5px;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+*/

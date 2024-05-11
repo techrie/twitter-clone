@@ -3,9 +3,7 @@ import "./Post.css";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import PublishIcon from "@mui/icons-material/Publish";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
-// import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 import { useEffect, useState } from "react";
 import Comments from "./Comments";
@@ -25,6 +23,8 @@ const Post = ({
 }) => {
   const [commentBox, setCommentBox] = useState(false);
   const [editCommentId, setEditCommentId] = useState("");
+
+  const [showComment, setShowComment] = useState(true);
 
   const isComment = useSelector((store) => store.isComment);
   useEffect(() => {}, [isComment]);
@@ -54,7 +54,6 @@ const Post = ({
                   createdAt?.seconds * 1000 + createdAt?.nanoseconds / 1000000
                 ).toLocaleTimeString()}
               </span>
-              {/* fireBaseTime.toLocaleTimeString() */}
             </p>
           </div>
 
@@ -68,15 +67,22 @@ const Post = ({
         />
 
         <div className="postFooter">
-          <ChatBubbleOutlineIcon
+          {showComment && (
+            <ChatBubbleOutlineIcon
+              onClick={() => {
+                setCommentBox(!commentBox);
+                setEditCommentId(id);
+              }}
+            />
+          )}
+          {/* <ChatBubbleOutlineIcon
             onClick={() => {
               setCommentBox(!commentBox);
               setEditCommentId(id);
             }}
-          />
+          /> */}
           <RepeatIcon />
           <FavoriteBorderIcon />
-          {/* <PublishIcon /> */}
 
           {commentBox && editCommentId === id && (
             <CommentInput
@@ -95,7 +101,6 @@ const Post = ({
               editCommentId={id}
             />
           )}
-
           {/* <Comments /> */}
         </div>
         <div className="comments-container">

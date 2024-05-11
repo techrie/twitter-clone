@@ -70,3 +70,5 @@ const CommentInput = ({ post, setCommentBox, editCommentId }) => {
   );
 };
 export default CommentInput;
+
+//Not required

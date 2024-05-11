@@ -24,7 +24,7 @@ const Comments = ({ comments }) => {
     <div className="comments-container">
       {comments &&
         comments.length !== 0 &&
-        comments.map((comment) => (
+        comments?.map((comment) => (
           <Comment
             key={nanoid()}
             displayName={comment?.displayName}

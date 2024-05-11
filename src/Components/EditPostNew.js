@@ -36,7 +36,7 @@ const EditPost = ({ post, setEditBox, editId }) => {
         className="btn-updateText"
         onClick={() => {
           editPosts({ ...post, text: text });
-          setEditBox(!text);
+          setEditBox(false);
         }}
       >
         Update Post
@@ -45,3 +45,5 @@ const EditPost = ({ post, setEditBox, editId }) => {
   );
 };
 export default EditPost;
+
+//Not required

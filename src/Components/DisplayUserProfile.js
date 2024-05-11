@@ -13,14 +13,16 @@ import EditPost from "./EditPost";
 import CommentInput from "./CommentInput";
 import { inEditMode } from "../utils/postsSlice";
 
-const DisplayUser = () => {
+const DisplayUserProfile = () => {
   const [userInfo, setUserInfo] = useState({});
   const [posts, setPosts] = useState([]);
 
   const [editBox, setEditBox] = useState(false);
-
-  const [commentBox, setCommentBox] = useState(false);
   const [editId, setEditId] = useState("");
+
+  //open the dropdown
+  const [open, setOpen] = useState(false);
+  const [dropdownId, setDropdownId] = useState("");
 
   const dispatch = useDispatch();
 
@@ -44,8 +46,14 @@ const DisplayUser = () => {
     editPost(postId);
   };
 
+  const handleOpen = (postId) => {
+    setDropdownId(postId);
+    setOpen(!open);
+  };
+
   const handleDeletePost = (postId) => {
     deletePost(postId);
+    setOpen(false);
     getUserPosts();
   };
 
@@ -133,24 +141,43 @@ const DisplayUser = () => {
                 image={post.image}
                 avatar={post.avatar}
                 createdAt={post.createdAt}
+                id={post.id}
               />
             </div>
             <div className="editdelete-container">
-              <button
-                className="edit-btn"
-                onClick={() => {
-                  setEditBox(!editBox);
-                  setEditId(post.id);
-                }}
-              >
-                Edit
-              </button>
-              <button
-                className="delete-btnn"
-                onClick={() => handleDeletePost(post.id)}
-              >
-                Delete
-              </button>
+              <div className="dropdown">
+                <button
+                  className="dropdown-btn"
+                  onClick={() => handleOpen(post.id)}
+                >
+                  Actions
+                </button>
+                {dropdownId === post.id && open ? (
+                  <ul className="menu">
+                    <li className="menu-item">
+                      <button
+                        className="edit-btn"
+                        onClick={() => {
+                          setEditBox(!editBox);
+                          setEditId(post.id);
+                          setOpen(false);
+                        }}
+                      >
+                        Edit
+                      </button>
+                    </li>
+                    <li className="menu-item">
+                      <button
+                        className="delete-btnn"
+                        onClick={() => handleDeletePost(post.id)}
+                      >
+                        Delete
+                      </button>
+                    </li>
+                  </ul>
+                ) : null}
+              </div>
+
               {editBox && editId === post.id && (
                 <EditPost
                   post={post}
@@ -169,8 +196,4 @@ const DisplayUser = () => {
     </div>
   );
 };
-export default DisplayUser;
-
-/*
-setEditBox(true); in onclick of Edit button
-*/
+export default DisplayUserProfile;

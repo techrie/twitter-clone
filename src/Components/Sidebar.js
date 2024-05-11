@@ -11,21 +11,21 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 import { signOut } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
-import { useEffect } from "react";
-import { addUser, removeUser } from "../utils/userSlice";
 import { getAuth } from "firebase/auth";
-import { Link } from "react-router-dom";
+import { addUser, removeUser } from "../utils/userSlice";
 
 const Sidebar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const auth = getAuth();
-  console.log(auth);
+  // console.log(auth);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -63,7 +63,7 @@ const Sidebar = () => {
   }, []);
 
   const user = useSelector((store) => store.user);
-  console.log(JSON.stringify(user) + "from sidebar....");
+  // console.log(JSON.stringify(user) + "from sidebar....");
 
   return (
     <>

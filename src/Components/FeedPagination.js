@@ -8,8 +8,11 @@ import db from "../utils/firebase";
 import { nanoid } from "nanoid";
 import { isCommentEdit, setPostsData } from "../utils/postsSlice";
 
-const Feed = () => {
+const FeedPagination = () => {
   const [posts, setPosts] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, SetPostsPerPage] = useState(2);
 
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
@@ -40,6 +43,7 @@ const Feed = () => {
           followsIdList = dataArray && dataArray?.follows;
           followsIdList &&
             followsIdList.map(async (id) => {
+              console.log(id, "from Feed Usersfollow id ");
               let postData = await getAuthorPosts(id);
               console.log(postData, " postData");
               dataObj.push(...postData);
@@ -54,6 +58,7 @@ const Feed = () => {
     const postsQuerySnapShot = await db
       .collection("posts")
       .where("authorId", "==", id)
+      .orderBy("createdAt", "desc")
       .get();
     const posts = postsQuerySnapShot.docs.map((post) => {
       const data = post.data();
@@ -74,9 +79,22 @@ const Feed = () => {
   useEffect(() => {
     console.log(posts, "posts");
     setPosts(posts);
-    fetchUserPosts(user);
+    // fetchUserPosts(user);
     // dispatch(setPostsData(posts));
   }, [posts]);
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  const handlePagination = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  let paginationNumbers = [];
+  for (let i = 1; i <= Math.ceil(posts?.length / postsPerPage); i++) {
+    paginationNumbers.push(i);
+  }
 
   return (
     <div className="feed">
@@ -87,7 +105,7 @@ const Feed = () => {
           <h3>No posts by User. Please add a post!</h3>
         </div>
       ) : (
-        posts?.map((post) => (
+        currentPosts?.map((post) => (
           <div>
             <Post
               key={nanoid()}
@@ -104,7 +122,19 @@ const Feed = () => {
           </div>
         ))
       )}
+
+      <div className="pagination">
+        {paginationNumbers?.map((pageNum) => (
+          <button
+            key={pageNum}
+            onClick={() => handlePagination(pageNum)}
+            className={currentPage === pageNum ? "active" : ""}
+          >
+            {pageNum}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
-export default Feed;
+export default FeedPagination;

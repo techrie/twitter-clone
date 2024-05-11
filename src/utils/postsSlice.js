@@ -9,9 +9,6 @@ const postsSlice = createSlice({
     refreshPost: false,
   },
   reducers: {
-    addUserFollowees: (state, action) => {
-      return action.payload;
-    },
     inEditMode: (state, action) => {
       state.isEditMode = action.payload;
     },
@@ -27,11 +24,6 @@ const postsSlice = createSlice({
   },
 });
 
-export const {
-  addUserFollowees,
-  inEditMode,
-  setPostsData,
-  isCommentEdit,
-  refreshPostEvent,
-} = postsSlice.actions;
+export const { inEditMode, setPostsData, isCommentEdit, refreshPostEvent } =
+  postsSlice.actions;
 export default postsSlice.reducer;
