@@ -8,16 +8,16 @@ import RepeatIcon from "@mui/icons-material/Repeat";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import { Avatar } from "@mui/material";
-import { nanoid } from "nanoid";
+
 import { useState, useEffect } from "react";
 
 import { fetchUser, fetchUserPosts, deletePost, editPost } from "./FetchUser";
-import User from "./User";
+
 import EditPost from "./EditPost";
 
 import { inEditMode } from "../utils/postsSlice";
 import db from "../utils/firebase";
-import { set } from "firebase/database";
+
 import { bioChanged } from "../utils/userSlice";
 
 const ProfilePagee = () => {
@@ -32,14 +32,11 @@ const ProfilePagee = () => {
   const [dropdownId, setDropdownId] = useState("");
 
   //bio
-  // const [designation, setDesignation] = useState("");
-  // const [manager, setManager] = useState("");
-  // const [tenure, setTenure] = useState("");
   const [editBio, setEditBio] = useState(false);
   const [bio, setBio] = useState({
-    designation: "",
-    manager: "",
-    tenure: "",
+    designation: "SW Engineer",
+    manager: "Lao Ding",
+    tenure: "10 years",
   });
 
   const dispatch = useDispatch();
@@ -56,6 +53,7 @@ const ProfilePagee = () => {
     const allPosts = await fetchUserPosts(user?.uid);
     // console.log(allPosts + "  from getUserPosts");
     setPosts(Array.from(allPosts));
+    // setOldPosts(Array.from(allPosts));
     // console.log(JSON.stringify(allPosts) + "fetching all Posts for a user");
   };
 
@@ -74,9 +72,15 @@ const ProfilePagee = () => {
         "bio.tenure": bio.tenure,
       })
       .then(() => {
+        setBio({
+          designation: "",
+          manager: "",
+          tenure: "",
+        });
         console.log("Document Bio successfully updated!");
       });
     dispatch(bioChanged(true));
+
     // setBio({ ...bio, [e.target.name]: "" }); set input to empty
   };
 
@@ -117,10 +121,13 @@ const ProfilePagee = () => {
   //get all posts whenever posts change
   useEffect(() => {
     console.log(posts, "posts");
-    // setPosts(posts);
     getUserPosts();
-    // dispatch(setPostsData(posts));
-  }, [posts, refreshPost]);
+  }, [refreshPost]);
+
+  useEffect(() => {
+    setPosts(posts);
+  }, [posts]);
+
   // console.log(userInfo + " from display user");
 
   //   const data_from_child = (data) => {
@@ -129,7 +136,7 @@ const ProfilePagee = () => {
   //     getUserPosts();
   //   };
 
-  console.log(userInfo, " user info from Profile Pagee ");
+  // console.log(userInfo, " user info from Profile Pagee ");
 
   return (
     <div className="profile-containerr">

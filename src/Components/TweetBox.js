@@ -1,6 +1,6 @@
 import { Avatar, Button } from "@mui/material";
 import "./TweetBox.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import db from "../utils/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import "firebase/compat/firestore";
@@ -13,6 +13,8 @@ const TweetBox = () => {
   const [tweetImg, setTweetImg] = useState("");
 
   const user = useSelector((store) => store.user);
+
+  const refreshPost = useSelector((store) => store.post.refreshPost);
 
   const dispatch = useDispatch();
 
@@ -39,8 +41,13 @@ const TweetBox = () => {
 
     setTweetMessage("");
     setTweetImg("");
+    dispatch(refreshPostEvent(false));
     dispatch(refreshPostEvent(true));
   };
+
+  useEffect(() => {
+    console.log(refreshPost);
+  }, [refreshPost]);
 
   return (
     <div className="tweetBox">

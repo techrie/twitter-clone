@@ -132,7 +132,7 @@ const Login = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const { uid, email, displayName, photoURL, follows } = user;
-        console.log(JSON.stringify(user) + " .. from user login");
+        // console.log(JSON.stringify(user) + " .. from user login");
         // dispatch(
         //   addUser({
         //     uid: uid,

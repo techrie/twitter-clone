@@ -16,7 +16,7 @@ const FeedPagination = () => {
 
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  const refreshPost = useSelector((store) => store.post.refreshPost);
+  const refreshPost = useSelector((store) => store.post);
   console.log(JSON.stringify(refreshPost) + " refresh post");
   const isComment = useSelector((store) => store.post);
 
@@ -71,9 +71,11 @@ const FeedPagination = () => {
     });
     return posts;
   };
+
   useEffect(() => {
     fetchUserPosts(user);
     dispatch(isCommentEdit(false));
+    console.log(refreshPost);
   }, [user, isComment, refreshPost]);
 
   useEffect(() => {

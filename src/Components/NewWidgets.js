@@ -25,9 +25,6 @@ const Widgets = () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [userFollowId, setUserFollowId] = useState("");
 
-  //to disable follow button once clicked
-  const [isDisabled, setDisabled] = useState(false);
-
   //added
   // const [checkIsFollowing, setCheckIsFollowing] = useState(false);
 
@@ -70,33 +67,7 @@ const Widgets = () => {
     dispatch(checkFollowing(true));
     setUserFollowId(userId);
     setIsFollowing(true);
-    //added below setDisabled
-    setDisabled(true);
     fetchUserDetails();
-  };
-
-  const isFollowed = async (usertoFollow) => {
-    let followsIdList = [];
-    console.log(usertoFollow, " new console user");
-    console.log(user, " logged in user");
-    let userExists = false;
-    user?.uid &&
-      (await db
-        .collection("users")
-        .doc(user?.uid)
-        .onSnapshot((snapshot) => {
-          let dataArray = snapshot?.data();
-          followsIdList = dataArray && dataArray?.follows;
-          console.log(followsIdList, "followsIdList");
-          userExists = followsIdList.some(
-            (itemId) => itemId === usertoFollow?.userId
-          );
-          // userExists = followsIdList.some(
-          //   async(d) => d === usertoFollow?.userId
-          // );
-          console.log(userExists, "isFollowed");
-          return userExists;
-        }));
   };
 
   useEffect(() => {
@@ -111,24 +82,13 @@ const Widgets = () => {
     // handleFollowUsers();
   }, []);
 
-  const getOtherUsers = async () => {
+  const getOtherUsers = () => {
     let otherUserss =
       users && users.length !== 0
         ? users.filter((person) => person?.email !== user?.email)
         : [];
-
+    // console.log(JSON.stringify(otherUsers) + " otherUsers");
     setOtherUsers(otherUserss);
-
-    //     let data = [];
-    // let dataArrayExists = [];
-    // otherUserss.map(async (user) => {
-    //   data = await isFollowed(user.userId);
-    //   console.log(data, "isFollowed+true");
-    //   user["enableFollow"] = data;
-    //   dataArrayExists.push(user);
-    // });
-    // setOtherUsers(dataArrayExists);
-    // console.log(dataArrayExists + " otherUsers");
   };
 
   useEffect(() => {
@@ -214,11 +174,8 @@ const Widgets = () => {
                 <button
                   className="follow-btn"
                   onClick={() => handleFollowUsers(user.userId)}
-                  disabled={isDisabled}
                 >
-                  {/* {isFollowed(user)} */}
-                  {/* userFollowId === user.userId && */}
-                  {userFollowId === user.userId && isFollowed(user)
+                  {userFollowId === user.userId && isFollowing
                     ? "Following"
                     : "Follow"}
                 </button>
